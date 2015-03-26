@@ -22,7 +22,7 @@ OBJS = $(DIR_TGT)main.o $(DIR_TGT)struct.o
 #-------------------------------------------------
 all: $(EXEC)
 
-test_lib: $(OBJS) $(DIR_LIB)libtokenize.dylib
+test_lib: $(OBJS) $(DIR_LIB)libtokenize.so
 	@echo ------------- Generating $@ -------------
 	$(CC) -o $(DIR_TGT)$@ $(OBJS) $(LFLAGS) $(LIBS)
 	@echo -e
