@@ -63,6 +63,13 @@ void set_charnum(uint32_t *n, uint8_t k, uint8_t toAdd){
 	//printf("Final element : \t\t");	displayBinary(*n);	printf("\n");
 }
 
+//marche dans le mauvais sens
+uint8_t get_charnum(uint32_t num, uint8_t k){
+  uint32_t masque = 63;
+  uint8_t res = (num & masque<<k*5)>>k*5;
+  return res;
+}
+
 Chainage add_to_tail(Chainage list, uint32_t elem){
 	Chainage newMaillon = malloc(sizeof(Maillon));
 	newMaillon->maille = elem;
