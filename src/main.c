@@ -11,7 +11,11 @@ int main (int argc, char* argv[]){
 
 	unsigned int nbl, nbc;
 
-	set_charnum(0xFF0000FF, 1, 26);
+	//set_charnum(0xFF0000FF, 1, 26);
+	Chainage c = string_to_maillon("abcdefghijklmnopqrstuvwxyz");
+	Chainage d = string_to_maillon("aaaaaaaaaaaaaaaaaaaaaaaaaa");
+	print_Maillon(c);
+	print_Maillon(d);
 
 	if(argc == 1)
 		file = stdin;
