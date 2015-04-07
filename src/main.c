@@ -3,7 +3,7 @@
 #include <stdint.h>
 
 #include "read_word.h"
-#include "mot.h"
+#include "dictionnaire.h"
 
 int traitement (FILE *file){
 	char *out;
@@ -45,6 +45,7 @@ int main (int argc, char* argv[]){
 	pDictionnaire d = NULL;
 	insertion_dictionnaire(d, "blabla", 1, 2);
 	insertion_dictionnaire(d, "blibli", 2, 2);
+	affichage(d);
 
 	if(argc == 1){
         file = stdin;
