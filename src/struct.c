@@ -2,14 +2,6 @@
 
 #define DEBUG 1
 
-uint8_t char_to_num(char c){
-	return c-'a'+1;
-}
-
-char num_to_char(uint8_t n){
-	return n+'a'-1;
-}
-
 void displayBinary(uint32_t n){
 	char s[39];
 	int i=0;
@@ -47,27 +39,30 @@ void displayBinary(uint32_t n){
 	}
 }
 
-void set_charnum(uint32_t *n, uint8_t k, uint8_t toAdd){
-	uint32_t mask = 0xFFFFFFFF;
-	//printf("First mask : \t\t\t");	displayBinary(mask);
-	mask = mask << 5;
-	for(int i=0; i<(5*(5-k)); i++)
-		mask = (mask << 1) | 1; //(5*(5-k));
-	//printf("Mask after shift : \t\t");	displayBinary(mask);
-	//printf("Element : \t\t\t");	displayBinary(*n);	
-	*n = *n & mask;
-	//printf("Element after applying mask : \t");	displayBinary(*n);
-	*n = *n | (toAdd << (5*(5-k)));
-	//printf("Element to add : \t\t");	displayBinary(toAdd);
-	//printf("Shifted element to add : \t"); displayBinary(toAdd << (5*(5-k)));
-	//printf("Final element : \t\t");	displayBinary(*n);	printf("\n");
+uint8_t char_to_num(char c){
+	return c-'a'+1;
 }
 
-//marche dans le mauvais sens
+char num_to_char(uint8_t n){
+	return n+'a'-1;
+}
+
+void set_charnum(uint32_t *n, uint8_t k, uint8_t toAdd){
+	uint32_t mask = 0xFFFFFFFF;
+	mask = mask << 5;
+	for(int i=0; i<(5*(5-k)); i++)
+		mask = (mask << 1) | 1;	
+	*n = *n & mask;
+	*n = *n | (toAdd << (5*(5-k)));
+}
+
+//marche dans le mauvais sens -- Fixed
 uint8_t get_charnum(uint32_t num, uint8_t k){
-  uint32_t masque = 63;
+  /*uint32_t masque = 63;
   uint8_t res = (num & masque<<k*5)>>k*5;
-  return res;
+  return res;*/
+
+	return (num & (31<<(5*(5-k))))>>(5*(5-k));
 }
 
 Chainage add_to_tail(Chainage list, uint32_t elem){
@@ -88,11 +83,21 @@ Chainage add_to_tail(Chainage list, uint32_t elem){
 
 void print_Maillon(Chainage list){
 	Chainage tmp = list;
-	//printf("Liste : \n");
+	printf("Liste : \n");
 	while(tmp != NULL){
-		//printf("\tMaillon : \t\t");	displayBinary(tmp->maille);
+		printf("\tMaillon : \t\t");	displayBinary(tmp->maille);
 		tmp = tmp->succ;
 	}
+}
+
+int length(Chainage list){
+	int i=0;
+	Chainage tmp = list;
+	while(tmp != NULL){
+		i++;
+		tmp = tmp->succ;
+	}
+	return i;
 }
 
 Chainage string_to_maillon(char *s){
@@ -106,6 +111,35 @@ Chainage string_to_maillon(char *s){
 		m = add_to_tail(m, maille);
 	}
 	return m;
+}
+
+void maillon_to_string(Chainage list, char *str){
+	int bEnd = 0;
+	int i, j;
+	Chainage tmp = list;
+
+	char strTmp[length(list)*6+1];
+
+	j = 0;
+	while(tmp != NULL){
+		i = 0;
+		while(i<6 && !bEnd){
+			if(get_charnum(tmp->maille, i) != 31){
+				strTmp[j*6+i] = num_to_char(get_charnum(tmp->maille, i));
+			}
+			else
+				bEnd = 1;
+			i++;
+		}
+		tmp = tmp->succ;
+		j++;
+	}
+	if(i==6)
+		strTmp[j*6] = '\0';
+	else
+		strTmp[(j-1)*6+i-1] = '\0';
+
+	strcpy(str, strTmp);
 }
 
 

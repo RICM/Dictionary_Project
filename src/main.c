@@ -17,6 +17,10 @@ int main (int argc, char* argv[]){
 	print_Maillon(c);
 	print_Maillon(d);
 
+	char str[length(c)*6+1];
+	maillon_to_string(c, str);
+	printf("String : %s\n", str);
+
 	if(argc == 1)
 		file = stdin;
 	else if(argc == 2)
