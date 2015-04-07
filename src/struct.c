@@ -51,17 +51,12 @@ void set_charnum(uint32_t *n, uint8_t k, uint8_t toAdd){
 	uint32_t mask = 0xFFFFFFFF;
 	mask = mask << 5;
 	for(int i=0; i<(5*(5-k)); i++)
-		mask = (mask << 1) | 1;	
+		mask = (mask << 1) | 1;
 	*n = *n & mask;
 	*n = *n | (toAdd << (5*(5-k)));
 }
 
-//marche dans le mauvais sens -- Fixed
 uint8_t get_charnum(uint32_t num, uint8_t k){
-  /*uint32_t masque = 63;
-  uint8_t res = (num & masque<<k*5)>>k*5;
-  return res;*/
-
 	return (num & (31<<(5*(5-k))))>>(5*(5-k));
 }
 
@@ -141,6 +136,3 @@ void maillon_to_string(Chainage list, char *str){
 
 	strcpy(str, strTmp);
 }
-
-
-
