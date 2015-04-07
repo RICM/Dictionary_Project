@@ -1,6 +1,14 @@
 
 #include "mot.h"
 
+/*void add_emplacement(pEmplacement p, pEmplacement p2){
+	pEmplacement tmp = p;
+	while(tmp->succ != NULL){
+		tmp = tmp->succ;
+	}
+	tmp->succ = p2;
+}*/
+
 void creer_mot(pMot mot, char *m, int l, int c){
 	pMaillon maillon = string_to_maillon(m);
 

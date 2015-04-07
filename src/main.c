@@ -25,7 +25,7 @@ int traitement (FILE *file){
 int main (int argc, char* argv[]){
 	FILE *file;
 	//set_charnum(0xFF0000FF, 1, 26);
-	pMaillon c = string_to_maillon("abcdefghijklmnopqrstuvwxyz");
+	/*pMaillon c = string_to_maillon("abcdefghijklmnopqrstuvwxyz");
 	pMaillon d = string_to_maillon("aaaaaaaaaaaaaaaaaaaaaaaaaa");
 	print_Maillon(c);
 	print_Maillon(d);
@@ -40,7 +40,11 @@ int main (int argc, char* argv[]){
 	Mot m1;
 	creer_mot(&m1, "test", 1, 2);
 	print_mot(m1);
-	printf("%d\n", compare_mots(m, m1));
+	printf("%d\n", compare_mots(m, m1));*/
+
+	pDictionnaire d = NULL;
+	insertion_dictionnaire(d, "blabla", 1, 2);
+	insertion_dictionnaire(d, "blibli", 2, 2);
 
 	if(argc == 1){
         file = stdin;
