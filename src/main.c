@@ -3,7 +3,7 @@
 #include <stdint.h>
 
 #include "read_word.h"
-#include "struct.h"
+#include "maillon.h"
 
 int main (int argc, char* argv[]){
 	FILE *file;
@@ -12,8 +12,8 @@ int main (int argc, char* argv[]){
 	unsigned int nbl, nbc;
 
 	//set_charnum(0xFF0000FF, 1, 26);
-	Chainage c = string_to_maillon("abcdefghijklmnopqrstuvwxyz");
-	Chainage d = string_to_maillon("aaaaaaaaaaaaaaaaaaaaaaaaaa");
+	pMaillon c = string_to_maillon("abcdefghijklmnopqrstuvwxyz");
+	pMaillon d = string_to_maillon("aaaaaaaaaaaaaaaaaaaaaaaaaa");
 	print_Maillon(c);
 	print_Maillon(d);
 
