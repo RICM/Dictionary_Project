@@ -10,3 +10,12 @@ void insertion_dictionnaire(pDictionnaire d, char *mot, int l, int c){
 	if(tmp == NULL)
 
 }
+
+void affichage(pDictionnaire d){
+	if (d != NULL){
+		while (d->succ != NULL){
+			print_mot(d->m);
+			d = d->succ;
+		}
+	}
+}
