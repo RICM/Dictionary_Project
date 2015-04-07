@@ -10,3 +10,4 @@ typedef struct dictionnaire_t {
 typedef Dictionnaire *pDictionnaire;
 
 void insertion_dictionnaire(pDictionnaire d, char *mot, int l, int c);
+void affichage(pDictionnaire d);
