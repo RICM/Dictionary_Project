@@ -24,7 +24,6 @@ int traitement (FILE *file){
 
 int main (int argc, char* argv[]){
 	FILE *file;
-	
 	//set_charnum(0xFF0000FF, 1, 26);
 	pMaillon c = string_to_maillon("abcdefghijklmnopqrstuvwxyz");
 	pMaillon d = string_to_maillon("aaaaaaaaaaaaaaaaaaaaaaaaaa");
@@ -66,4 +65,3 @@ int main (int argc, char* argv[]){
 	}
 	return 0;
 }
-
