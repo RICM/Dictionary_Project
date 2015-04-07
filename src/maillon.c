@@ -69,9 +69,10 @@ void maillon_to_string(pMaillon list, char *str){
 		tmp = tmp->succ;
 		j++;
 	}
-	if(i==6)
-		strTmp[j*6] = '\0';
-	else
+
+	if(bEnd)
 		strTmp[(j-1)*6+i-1] = '\0';
+	else
+		strTmp[(j-1)*6+i] = '\0';
 	strcpy(str, strTmp);
 }

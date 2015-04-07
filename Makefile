@@ -15,7 +15,7 @@ DIR_TGT = target/
 LFLAGS = -L$(DIR_LIB)
 LIBS = -ltokenize
 
-OBJS = $(DIR_TGT)main.o $(DIR_TGT)maillon.o $(DIR_TGT)utils.o 
+OBJS = $(DIR_TGT)main.o $(DIR_TGT)maillon.o $(DIR_TGT)utils.o $(DIR_TGT)mot.o
 
 #-------------------------------------------------
 #                     LINKINGS                    
@@ -34,7 +34,7 @@ test_lib: $(OBJS) $(DIR_LIB)libtokenize.dylib
 $(DIR_TGT)main.o: $(DIR_INCLUDE)read_word.h $(DIR_INCLUDE)maillon.h
 $(DIR_TGT)utils.o: $(DIR_INCLUDE)utils.h
 $(DIR_TGT)maillon.o: $(DIR_INCLUDE)maillon.h $(DIR_INCLUDE)utils.h 
-$(DIR_TGT)mot.o: $(DIR_INCLUDE)mot.h
+$(DIR_TGT)mot.o: $(DIR_INCLUDE)mot.h $(DIR_INCLUDE)maillon.h
 
 #--------------
 #		Global	
