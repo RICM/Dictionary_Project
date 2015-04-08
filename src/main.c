@@ -50,7 +50,7 @@ int main (int argc, char* argv[]){
 	creer_mot(&m1, "al", 1, 2);
 	print_mot(m1);
 	printf("%d\n", compare_mots(m, m1));
-	
+
 
 	/*pDictionnaire d = NULL;
 	d = insertion_dictionnaire(d, "b", 1, 2);
@@ -65,17 +65,20 @@ int main (int argc, char* argv[]){
         file = stdin;
         return traitement(file);
 	}
-    else if(argc == 2){
+  else if(argc == 2){
         file = fopen(argv[1], "r");
         return traitement(file);
-    }
-    else{
+  }
+  else{
         int status = 0;
-        int startLoop = 3;
+        int startLoop = 1;
         int endLoop = argc;
         int varLoop = startLoop;
         while ( varLoop < endLoop && status == 0){
             file = fopen(argv[varLoop], "r");
+						printf("#############################################################################################\n");
+						printf("Fichier : %s\n",argv[varLoop] );
+						printf("#############################################################################################\n");
             status = traitement(file);
             fclose(file);
             varLoop++;
