@@ -38,7 +38,7 @@ pDictionnaire insertion_dictionnaire(pDictionnaire d, char *mot, int l, int c){
 
 	if(d == NULL)
 		return add_to_head_dictionnaire(NULL, m);
-	else if(d->succ == NULL || compare_mots(m, d->m) == -1)
+	else if(d->succ == NULL || compare_mots(m, d->m) < 1)
 		switch(compare_mots(m, d->m)){
 			case 0:
 				d->m = add_emplacement_mot(d->m, l, c);
