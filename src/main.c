@@ -8,6 +8,7 @@
 int traitement (FILE *file){
 	char *out;
 	unsigned int nbl, nbc;
+	pDictionnaire d = NULL;
 
     if(!file){
         fprintf(stderr, "Error : file is inaccessible.\n");
@@ -16,8 +17,10 @@ int traitement (FILE *file){
     else{
         while(!feof(file)){
             out = next_word(file, &nbl, &nbc);
-            printf("%s (%d,%d)\n", out, nbl, nbc);
+            d = insertion_dictionnaire(d, out, nbl, nbc);
+            //printf("%s (%d,%d)\n", out, nbl, nbc);
         }
+        affichage(d);
     }
     return 0;
 }
@@ -35,17 +38,28 @@ int main (int argc, char* argv[]){
 	printf("String : %s\n", str);
 
 	Mot m;
-	creer_mot(&m, "test", 1, 2);
+	creer_mot(&m, "b", 1, 2);
+	pEmplacement emp = malloc(sizeof(Emplacement));
+	emp->l = 3;
+	emp->c = 4;
+	emp->succ = NULL;
+	m.tete_liste = add_emplacement(m.tete_liste, emp);
+	m.queue_liste = emp;
 	print_mot(m);
 	Mot m1;
-	creer_mot(&m1, "test", 1, 2);
+	creer_mot(&m1, "al", 1, 2);
 	print_mot(m1);
-	printf("%d\n", compare_mots(m, m1));*/
+	printf("%d\n", compare_mots(m, m1));
+	
 
-	pDictionnaire d = NULL;
-	insertion_dictionnaire(d, "blabla", 1, 2);
-	insertion_dictionnaire(d, "blibli", 2, 2);
+	/*pDictionnaire d = NULL;
+	d = insertion_dictionnaire(d, "b", 1, 2);
+	d = insertion_dictionnaire(d, "a", 2, 2);
+	d = insertion_dictionnaire(d, "blabla", 2, 2);
+	d = insertion_dictionnaire(d, "alabla", 2, 2);
+	printf("Dictionnaire : \n\n");
 	affichage(d);
+	printf("\n\n");*/
 
 	if(argc == 1){
         file = stdin;

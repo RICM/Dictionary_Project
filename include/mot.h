@@ -18,7 +18,8 @@ typedef struct mot_t {
 
 typedef Mot *pMot;
 
-void add_emplacement(pEmplacement p, int l, int c);
+pEmplacement add_emplacement(pEmplacement p, pEmplacement p2);
+Mot add_emplacement_mot(Mot m, int l, int c);
 
 void creer_mot(Mot *mot, char *m, int l, int c);
 void print_mot(Mot m);

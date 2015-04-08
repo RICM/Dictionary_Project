@@ -6,7 +6,7 @@
 #include "utils.h"
 
 typedef struct maillon_t {
-	uint32_t maille;
+	Storage maille;
 	struct maillon_t *succ;
 } Maillon;
 
@@ -15,6 +15,6 @@ typedef Maillon *pMaillon;
 void print_Maillon(pMaillon list);
 int length(pMaillon list);
 
-pMaillon add_to_tail(pMaillon list, uint32_t elem);
+pMaillon add_to_tail(pMaillon list, Storage elem);
 pMaillon string_to_maillon(char *s);
 void maillon_to_string(pMaillon list, char *str);

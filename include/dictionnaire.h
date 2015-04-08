@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "mot.h"
+
 typedef struct dictionnaire_t {
 	Mot m;
 	struct dictionnaire_t *succ;
@@ -9,5 +11,5 @@ typedef struct dictionnaire_t {
 
 typedef Dictionnaire *pDictionnaire;
 
-void insertion_dictionnaire(pDictionnaire d, char *mot, int l, int c);
+pDictionnaire insertion_dictionnaire(pDictionnaire d, char *mot, int l, int c);
 void affichage(pDictionnaire d);

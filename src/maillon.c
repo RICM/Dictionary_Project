@@ -20,7 +20,7 @@ int length(pMaillon list){
 	return i;
 }
 
-pMaillon add_to_tail(pMaillon list, uint32_t elem){
+pMaillon add_to_tail(pMaillon list, Storage elem){
 	pMaillon newMaillon = malloc(sizeof(Maillon));
 	newMaillon->maille = elem;
 	newMaillon->succ = NULL;
@@ -38,10 +38,10 @@ pMaillon add_to_tail(pMaillon list, uint32_t elem){
 
 pMaillon string_to_maillon(char *s){
 	pMaillon m = NULL;
-	uint32_t maille;
-	for(int i=0; i<strlen(s); i+=6){
-		maille = 0xFFFFFFFF;
-		for(int j=0; (j<6 && j+i<strlen(s)); j++){
+	Storage maille;
+	for(int i=0; i<strlen(s); i+=NBL){
+		maille = 0;
+		for(int j=0; (j<NBL && j+i<strlen(s)); j++){
 			set_charnum(&maille, j, char_to_num(s[i+j]));
 		}
 		m = add_to_tail(m, maille);
@@ -54,14 +54,14 @@ void maillon_to_string(pMaillon list, char *str){
 	int i, j;
 	pMaillon tmp = list;
 
-	char strTmp[length(list)*6+1];
+	char strTmp[length(list)*NBL+1];
 
 	j = 0;
 	while(tmp != NULL){
 		i = 0;
-		while(i<6 && !bEnd){
-			if(get_charnum(tmp->maille, i) != 31)
-				strTmp[j*6+i] = num_to_char(get_charnum(tmp->maille, i));
+		while(i<NBL && !bEnd){
+			if(get_charnum(tmp->maille, i) != 0)
+				strTmp[j*NBL+i] = num_to_char(get_charnum(tmp->maille, i));
 			else
 				bEnd = 1;
 			i++;
@@ -71,8 +71,8 @@ void maillon_to_string(pMaillon list, char *str){
 	}
 
 	if(bEnd)
-		strTmp[(j-1)*6+i-1] = '\0';
+		strTmp[(j-1)*NBL+i-1] = '\0';
 	else
-		strTmp[(j-1)*6+i] = '\0';
+		strTmp[(j-1)*NBL+i] = '\0';
 	strcpy(str, strTmp);
 }

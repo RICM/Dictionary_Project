@@ -44,8 +44,11 @@ char num_to_char(uint8_t n){
 	return n+'a'-1;
 }
 
-void set_charnum(uint32_t *n, uint8_t k, uint8_t toAdd){
-	uint32_t mask = 0xFFFFFFFF;
+void set_charnum(Storage *n, uint8_t k, uint8_t toAdd){
+	Storage mask = 1;
+	for(int i=1; i<SIZE; i++)
+		mask = mask | (1<<i);
+	
 	mask = mask << 5;
 	for(int i=0; i<(5*(5-k)); i++)
 		mask = (mask << 1) | 1;
@@ -53,6 +56,6 @@ void set_charnum(uint32_t *n, uint8_t k, uint8_t toAdd){
 	*n = *n | (toAdd << (5*(5-k)));
 }
 
-uint8_t get_charnum(uint32_t num, uint8_t k){
+uint8_t get_charnum(Storage num, uint8_t k){
 	return (num & (31<<(5*(5-k))))>>(5*(5-k));
 }
