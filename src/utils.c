@@ -1,37 +1,32 @@
 #include "utils.h"
 
-void displayBinary(uint32_t n){
-	char s[39];
-	int i=0;
+void displayBinary(Storage n){
+	char tmp[SIZE];
+	char s[SIZE + (SIZE/5) + 1];
+	int i, j;
 	if(DEBUG){
-		for(int i=0; i<38; i++)
-			s[i] = '0';
-		s[38] = '\0';
 
+		for(int i=0; i<SIZE; i++)
+			tmp[i] = '0';
+
+		i =0;
+		j = 0;
 		while (n) {
 	    	if (n & 1)
-	        	s[37-i] = '1';
+	        	tmp[SIZE-1-i] = '1';
 	    	n >>= 1;
 	    	i++;
 		}
-		s[0] = s[6];
-		s[1] = s[7];
-		s[2] = '-';
-		for(int i=8; i<13; i++)
-			s[i-5] = s[i];
-		s[8] = '-';
-		for(int i=13; i<18; i++)
-			s[i-4] = s[i];
-		s[14] = '-';
-		for(int i=18; i<23; i++)
-			s[i-3] = s[i];
-		s[20] = '-';
-		for(int i=23; i<28; i++)
-			s[i-2] = s[i];
-		s[26] = '-';
-		for(int i=28; i<33; i++)
-			s[i-1] = s[i];
-		s[32] = '-';
+
+		for(i=0; i<SIZE; i++){
+			if((SIZE == 64 && (i == 4 || (i-4)%(5) == 0)) || (SIZE == 32 && (i == 2 || (i-2)%(5) == 0)) || (SIZE == 16 && (i == 1 || (i-1)%(5) == 0)) || (SIZE == 8 && (i == 3 || (i-3)%(5) == 0))){
+				s[j] = '-';
+				j++;
+			}
+			s[j] = tmp[i];
+			j++;
+		}
+		s[SIZE + (SIZE/5)] = '\0';
 		printf("%s\n", s);
 	}
 }
@@ -44,18 +39,23 @@ char num_to_char(uint8_t n){
 	return n+'a'-1;
 }
 
-void set_charnum(Storage *n, uint8_t k, uint8_t toAdd){
+void set_charnum(Storage *n, uint8_t k, Storage toAdd){
 	Storage mask = 1;
 	for(int i=1; i<SIZE; i++)
 		mask = mask | (1<<i);
 	
 	mask = mask << 5;
-	for(int i=0; i<(5*(5-k)); i++)
+	for(int i=0; i<(5*(NBL-1-k)); i++)
 		mask = (mask << 1) | 1;
+	//printf("Origin : \t\t"); displayBinary(*n);
 	*n = *n & mask;
-	*n = *n | (toAdd << (5*(5-k)));
+	//printf("With mask : \t\t"); displayBinary(*n);
+	*n = *n | (toAdd << (5*(NBL-1-k)));
+	//printf("With data : \t\t"); displayBinary(*n); printf("\n");
 }
 
 uint8_t get_charnum(Storage num, uint8_t k){
-	return (num & (31<<(5*(5-k))))>>(5*(5-k));
+	Storage mask = 31;
+	//displayBinary(mask<<(5*(NBL-1-k)));
+	return (num & (mask<<(5*(NBL-1-k))))>>(5*(NBL-1-k));
 }

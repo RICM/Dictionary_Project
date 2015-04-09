@@ -18,7 +18,6 @@ int traitement (FILE *file){
         while(!feof(file)){
             out = next_word(file, &nbl, &nbc);
             d = insertion_dictionnaire(d, out, nbl, nbc);
-            //printf("%s (%d,%d)\n", out, nbl, nbc);
         }
         affichage(d);
     }
@@ -27,39 +26,16 @@ int traitement (FILE *file){
 
 int main (int argc, char* argv[]){
 	FILE *file;
-	//set_charnum(0xFF0000FF, 1, 26);
-	/*pMaillon c = string_to_maillon("abcdefghijklmnopqrstuvwxyz");
+
+	/*Storage n = 0x0000000000000000;
+	set_charnum(&n, 0, 26);
+	displayBinary(n);
+	printf("%d\n", get_charnum(n, 0));
+	
+	pMaillon c = string_to_maillon("abcdefghijklmnopqrstuvwxyz");
 	pMaillon d = string_to_maillon("aaaaaaaaaaaaaaaaaaaaaaaaaa");
 	print_Maillon(c);
-	print_Maillon(d);
-
-	char str[length(c)*6+1];
-	maillon_to_string(c, str);
-	printf("String : %s\n", str);
-
-	Mot m;
-	creer_mot(&m, "b", 1, 2);
-	pEmplacement emp = malloc(sizeof(Emplacement));
-	emp->l = 3;
-	emp->c = 4;
-	emp->succ = NULL;
-	m.tete_liste = add_emplacement(m.tete_liste, emp);
-	m.queue_liste = emp;
-	print_mot(m);
-	Mot m1;
-	creer_mot(&m1, "al", 1, 2);
-	print_mot(m1);
-	printf("%d\n", compare_mots(m, m1));
-
-
-	/*pDictionnaire d = NULL;
-	d = insertion_dictionnaire(d, "b", 1, 2);
-	d = insertion_dictionnaire(d, "a", 2, 2);
-	d = insertion_dictionnaire(d, "blabla", 2, 2);
-	d = insertion_dictionnaire(d, "alabla", 2, 2);
-	printf("Dictionnaire : \n\n");
-	affichage(d);
-	printf("\n\n");*/
+	print_Maillon(d);*/
 
 	if(argc == 1){
         file = stdin;
