@@ -4,7 +4,7 @@
 CC = gcc
 CFLAGS = -g -Wall -pedantic -std=c99 -Iinclude/
 LFLAGS = -L$(DIR_LIB)
-EXEC = dictionarize64 dictionarize32 dictionarize16 dictionarize8
+EXEC = dictionarize64 dictionarize32 dictionarize16 dictionarize8 test_function64 test_function32 test_function16 test_function8
 DEBUG = 0
 
 DIR_INCLUDE = include/
@@ -15,116 +15,195 @@ DIR_TGT = target/
 LFLAGS = -L$(DIR_LIB)
 LIBS = -ltokenize
 
-OBJS = $(DIR_TGT)main.o $(DIR_TGT)dictionnaire.o 
+OBJS_64 = $(DIR_TGT)main64.o $(DIR_TGT)dictionnaire64.o $(DIR_TGT)utils64.o $(DIR_TGT)maillon64.o $(DIR_TGT)mot64.o
+OBJS_32 = $(DIR_TGT)main32.o $(DIR_TGT)dictionnaire32.o $(DIR_TGT)utils32.o $(DIR_TGT)maillon32.o $(DIR_TGT)mot32.o
+OBJS_16 = $(DIR_TGT)main16.o $(DIR_TGT)dictionnaire16.o $(DIR_TGT)utils16.o $(DIR_TGT)maillon16.o $(DIR_TGT)mot16.o
+OBJS_8 = $(DIR_TGT)main8.o $(DIR_TGT)dictionnaire8.o $(DIR_TGT)utils8.o $(DIR_TGT)maillon8.o $(DIR_TGT)mot8.o
 
 #-------------------------------------------------
 #                     LINKINGS                    
 #-------------------------------------------------
 all: $(EXEC)
 
-dictionarize64: $(OBJS) $(DIR_TGT)utils64.o $(DIR_TGT)maillon64.o $(DIR_TGT)mot64.o $(DIR_LIB)libtokenize.so
+test_function64: $(DIR_TGT)test64.o $(DIR_TGT)utils64.o $(DIR_TGT)maillon64.o $(DIR_TGT)mot64.o
 	@echo ------------- Generating $@ -------------
-	$(CC) -o $(DIR_TGT)$@ $(OBJS) $(DIR_TGT)utils64.o $(DIR_TGT)maillon64.o $(DIR_TGT)mot64.o $(LFLAGS) $(LIBS)
+	$(CC) -o $(DIR_TGT)$@ $< $(DIR_TGT)utils64.o $(DIR_TGT)maillon64.o $(DIR_TGT)mot64.o
 	@echo -e
 
-dictionarize32: $(OBJS) $(DIR_TGT)utils32.o $(DIR_TGT)maillon32.o $(DIR_TGT)mot32.o $(DIR_LIB)libtokenize.so
+test_function32: $(DIR_TGT)test32.o $(DIR_TGT)utils32.o $(DIR_TGT)maillon32.o $(DIR_TGT)mot32.o
 	@echo ------------- Generating $@ -------------
-	$(CC) -o $(DIR_TGT)$@ $(OBJS) $(DIR_TGT)utils32.o $(DIR_TGT)maillon32.o $(DIR_TGT)mot32.o $(LFLAGS) $(LIBS)
+	$(CC) -o $(DIR_TGT)$@ $< $(DIR_TGT)utils32.o $(DIR_TGT)maillon32.o $(DIR_TGT)mot32.o
 	@echo -e
 
-dictionarize16: $(OBJS) $(DIR_TGT)utils16.o $(DIR_TGT)maillon16.o $(DIR_TGT)mot16.o $(DIR_LIB)libtokenize.so
+test_function16: $(DIR_TGT)test16.o $(DIR_TGT)utils16.o $(DIR_TGT)maillon16.o $(DIR_TGT)mot16.o
 	@echo ------------- Generating $@ -------------
-	$(CC) -o $(DIR_TGT)$@ $(OBJS) $(DIR_TGT)utils16.o $(DIR_TGT)maillon16.o $(DIR_TGT)mot16.o $(LFLAGS) $(LIBS)
+	$(CC) -o $(DIR_TGT)$@ $< $(DIR_TGT)utils16.o $(DIR_TGT)maillon16.o $(DIR_TGT)mot16.o
 	@echo -e
 
-dictionarize8: $(OBJS) $(DIR_TGT)utils8.o $(DIR_TGT)maillon8.o $(DIR_TGT)mot8.o $(DIR_LIB)libtokenize.so
+test_function8: $(DIR_TGT)test8.o $(DIR_TGT)utils8.o $(DIR_TGT)maillon8.o $(DIR_TGT)mot8.o
 	@echo ------------- Generating $@ -------------
-	$(CC) -o $(DIR_TGT)$@ $(OBJS) $(DIR_TGT)utils8.o $(DIR_TGT)maillon8.o $(DIR_TGT)mot8.o $(LFLAGS) $(LIBS)
+	$(CC) -o $(DIR_TGT)$@ $< $(DIR_TGT)utils8.o $(DIR_TGT)maillon8.o $(DIR_TGT)mot8.o
+	@echo -e
+
+dictionarize64: $(OBJS_64) $(DIR_LIB)libtokenize.so
+	@echo ------------- Generating $@ -------------
+	$(CC) -o $(DIR_TGT)$@ $(OBJS_64) $(LFLAGS) $(LIBS)
+	@echo -e
+
+dictionarize32: $(OBJS_32) $(DIR_LIB)libtokenize.so
+	@echo ------------- Generating $@ -------------
+	$(CC) -o $(DIR_TGT)$@ $(OBJS_32) $(LFLAGS) $(LIBS)
+	@echo -e
+
+dictionarize16: $(OBJS_16) $(DIR_LIB)libtokenize.so
+	@echo ------------- Generating $@ -------------
+	$(CC) -o $(DIR_TGT)$@ $(OBJS_16) $(LFLAGS) $(LIBS)
+	@echo -e
+
+dictionarize8: $(OBJS_8) $(DIR_LIB)libtokenize.so
+	@echo ------------- Generating $@ -------------
+	$(CC) -o $(DIR_TGT)$@ $(OBJS_8) $(LFLAGS) $(LIBS)
 	@echo -e
 
 #-------------------------------------------------
 #                   DEPENDENCIES                  
 #-------------------------------------------------
 
-$(DIR_TGT)main.o: $(DIR_INCLUDE)read_word.h $(DIR_INCLUDE)maillon.h $(DIR_INCLUDE)dictionnaire.h
-$(DIR_TGT)dictionnaire.o: $(DIR_INCLUDE)dictionnaire.h $(DIR_INCLUDE)mot.h
-
 #--------------
 #    64bits	
 #--------------
 
-$(DIR_TGT)utils64.o: $(DIR_SRC)utils.c $(DIR_INCLUDE)utils.h
+$(DIR_TGT)test64.o: $(DIR_SRC)test.c $(DIR_INCLUDE)mot.h
 	@echo ------------- Generating $@ -------------
-	$(CC) -o $@ -c -DDEBUG=$(DEBUG) -DNBL=12 $< $(CFLAGS)
+	$(CC) -o $@ -c -DStorage=uint64_t -DSIZE=64 $< $(CFLAGS)
 	@echo -e
 
-$(DIR_TGT)maillon64.o: $(DIR_SRC)maillon.c $(DIR_INCLUDE)maillon.h $(DIR_INCLUDE)utils.h 
+$(DIR_TGT)main64.o: $(DIR_SRC)main.c $(DIR_INCLUDE)read_word.h $(DIR_INCLUDE)dictionnaire.h
 	@echo ------------- Generating $@ -------------
-	$(CC) -o $@ -c -DNBL=12 $< $(CFLAGS)
+	$(CC) -o $@ -c -DStorage=uint64_t -DSIZE=64 $< $(CFLAGS)
+	@echo -e
+
+$(DIR_TGT)dictionnaire64.o: $(DIR_SRC)dictionnaire.c $(DIR_INCLUDE)dictionnaire.h $(DIR_INCLUDE)mot.h
+	@echo ------------- Generating $@ -------------
+	$(CC) -o $@ -c -DStorage=uint64_t -DSIZE=64 $< $(CFLAGS)
 	@echo -e
 
 $(DIR_TGT)mot64.o: $(DIR_SRC)mot.c $(DIR_INCLUDE)mot.h $(DIR_INCLUDE)maillon.h
 	@echo ------------- Generating $@ -------------
-	$(CC) -o $@ -c -DNBL=12 $< $(CFLAGS)
+	$(CC) -o $@ -c -DNBL=12 -DStorage=uint64_t -DSIZE=64 $< $(CFLAGS)
+	@echo -e
+
+$(DIR_TGT)maillon64.o: $(DIR_SRC)maillon.c $(DIR_INCLUDE)maillon.h $(DIR_INCLUDE)utils.h 
+	@echo ------------- Generating $@ -------------
+	$(CC) -o $@ -c -DNBL=12 -DStorage=uint64_t -DSIZE=64 $< $(CFLAGS)
+	@echo -e
+
+$(DIR_TGT)utils64.o: $(DIR_SRC)utils.c $(DIR_INCLUDE)utils.h
+	@echo ------------- Generating $@ -------------
+	$(CC) -o $@ -c -DDEBUG=$(DEBUG) -DNBL=12 -DStorage=uint64_t -DSIZE=64 $< $(CFLAGS)
 	@echo -e
 
 #--------------
 #    32bits	
 #--------------
 
-$(DIR_TGT)utils32.o: $(DIR_SRC)utils.c $(DIR_INCLUDE)utils.h
+$(DIR_TGT)test32.o: $(DIR_SRC)test.c $(DIR_INCLUDE)mot.h
 	@echo ------------- Generating $@ -------------
-	$(CC) -o $@ -c -DDEBUG=$(DEBUG) -DNBL=6 $< $(CFLAGS)
+	$(CC) -o $@ -c -DStorage=uint32_t -DSIZE=32 $< $(CFLAGS)
 	@echo -e
 
-$(DIR_TGT)maillon32.o: $(DIR_SRC)maillon.c $(DIR_INCLUDE)maillon.h $(DIR_INCLUDE)utils.h 
+$(DIR_TGT)main32.o: $(DIR_SRC)main.c $(DIR_INCLUDE)read_word.h $(DIR_INCLUDE)dictionnaire.h
 	@echo ------------- Generating $@ -------------
-	$(CC) -o $@ -c -DNBL=6 $< $(CFLAGS)
+	$(CC) -o $@ -c -DStorage=uint32_t -DSIZE=32 $< $(CFLAGS)
+	@echo -e
+
+$(DIR_TGT)dictionnaire32.o: $(DIR_SRC)dictionnaire.c $(DIR_INCLUDE)dictionnaire.h $(DIR_INCLUDE)mot.h
+	@echo ------------- Generating $@ -------------
+	$(CC) -o $@ -c -DStorage=uint32_t -DSIZE=32 $< $(CFLAGS)
 	@echo -e
 
 $(DIR_TGT)mot32.o: $(DIR_SRC)mot.c $(DIR_INCLUDE)mot.h $(DIR_INCLUDE)maillon.h
 	@echo ------------- Generating $@ -------------
-	$(CC) -o $@ -c -DNBL=6 $< $(CFLAGS)
+	$(CC) -o $@ -c -DNBL=6 -DStorage=uint32_t -DSIZE=32 $< $(CFLAGS)
+	@echo -e
+
+$(DIR_TGT)maillon32.o: $(DIR_SRC)maillon.c $(DIR_INCLUDE)maillon.h $(DIR_INCLUDE)utils.h 
+	@echo ------------- Generating $@ -------------
+	$(CC) -o $@ -c -DNBL=6 -DStorage=uint32_t -DSIZE=32 $< $(CFLAGS)
+	@echo -e
+
+$(DIR_TGT)utils32.o: $(DIR_SRC)utils.c $(DIR_INCLUDE)utils.h
+	@echo ------------- Generating $@ -------------
+	$(CC) -o $@ -c -DDEBUG=$(DEBUG) -DNBL=6 -DStorage=uint32_t -DSIZE=32 $< $(CFLAGS)
 	@echo -e
 
 #--------------
 #    16bits	
 #--------------
 
-$(DIR_TGT)utils16.o: $(DIR_SRC)utils.c $(DIR_INCLUDE)utils.h
+$(DIR_TGT)test16.o: $(DIR_SRC)test.c $(DIR_INCLUDE)mot.h
 	@echo ------------- Generating $@ -------------
-	$(CC) -o $@ -c -DDEBUG=$(DEBUG) -DNBL=3 $< $(CFLAGS)
+	$(CC) -o $@ -c -DStorage=uint16_t -DSIZE=16 $< $(CFLAGS)
 	@echo -e
 
-$(DIR_TGT)maillon16.o: $(DIR_SRC)maillon.c $(DIR_INCLUDE)maillon.h $(DIR_INCLUDE)utils.h 
+$(DIR_TGT)main16.o: $(DIR_SRC)main.c $(DIR_INCLUDE)read_word.h $(DIR_INCLUDE)dictionnaire.h
 	@echo ------------- Generating $@ -------------
-	$(CC) -o $@ -c -DNBL=3 $< $(CFLAGS)
+	$(CC) -o $@ -c -DStorage=uint16_t -DSIZE=16 $< $(CFLAGS)
+	@echo -e
+
+$(DIR_TGT)dictionnaire16.o: $(DIR_SRC)dictionnaire.c $(DIR_INCLUDE)dictionnaire.h $(DIR_INCLUDE)mot.h
+	@echo ------------- Generating $@ -------------
+	$(CC) -o $@ -c -DStorage=uint16_t -DSIZE=16 $< $(CFLAGS)
 	@echo -e
 
 $(DIR_TGT)mot16.o: $(DIR_SRC)mot.c $(DIR_INCLUDE)mot.h $(DIR_INCLUDE)maillon.h
 	@echo ------------- Generating $@ -------------
-	$(CC) -o $@ -c -DNBL=3 $< $(CFLAGS)
+	$(CC) -o $@ -c -DNBL=3 -DStorage=uint16_t -DSIZE=16 $< $(CFLAGS)
+	@echo -e
+
+$(DIR_TGT)maillon16.o: $(DIR_SRC)maillon.c $(DIR_INCLUDE)maillon.h $(DIR_INCLUDE)utils.h 
+	@echo ------------- Generating $@ -------------
+	$(CC) -o $@ -c -DNBL=3 -DStorage=uint16_t -DSIZE=16 $< $(CFLAGS)
+	@echo -e
+
+$(DIR_TGT)utils16.o: $(DIR_SRC)utils.c $(DIR_INCLUDE)utils.h
+	@echo ------------- Generating $@ -------------
+	$(CC) -o $@ -c -DDEBUG=$(DEBUG) -DNBL=3 -DStorage=uint16_t -DSIZE=16 $< $(CFLAGS)
 	@echo -e
 
 #--------------
 #    8bits	
 #--------------
 
-$(DIR_TGT)utils8.o: $(DIR_SRC)utils.c $(DIR_INCLUDE)utils.h
+$(DIR_TGT)test8.o: $(DIR_SRC)test.c $(DIR_INCLUDE)mot.h
 	@echo ------------- Generating $@ -------------
-	$(CC) -o $@ -c -DDEBUG=$(DEBUG) -DNBL=1 $< $(CFLAGS)
+	$(CC) -o $@ -c -DStorage=uint8_t -DSIZE=8 $< $(CFLAGS)
 	@echo -e
 
-$(DIR_TGT)maillon8.o: $(DIR_SRC)maillon.c $(DIR_INCLUDE)maillon.h $(DIR_INCLUDE)utils.h 
+$(DIR_TGT)main8.o: $(DIR_SRC)main.c $(DIR_INCLUDE)read_word.h $(DIR_INCLUDE)dictionnaire.h
 	@echo ------------- Generating $@ -------------
-	$(CC) -o $@ -c -DNBL=1 $< $(CFLAGS)
+	$(CC) -o $@ -c -DStorage=uint8_t -DSIZE=8 $< $(CFLAGS)
+	@echo -e
+
+$(DIR_TGT)dictionnaire8.o: $(DIR_SRC)dictionnaire.c $(DIR_INCLUDE)dictionnaire.h $(DIR_INCLUDE)mot.h
+	@echo ------------- Generating $@ -------------
+	$(CC) -o $@ -c -DStorage=uint8_t -DSIZE=8 $< $(CFLAGS)
 	@echo -e
 
 $(DIR_TGT)mot8.o: $(DIR_SRC)mot.c $(DIR_INCLUDE)mot.h $(DIR_INCLUDE)maillon.h
 	@echo ------------- Generating $@ -------------
-	$(CC) -o $@ -c -DNBL=1 $< $(CFLAGS)
+	$(CC) -o $@ -c -DNBL=1 -DStorage=uint8_t -DSIZE=8 $< $(CFLAGS)
 	@echo -e
 
+$(DIR_TGT)maillon8.o: $(DIR_SRC)maillon.c $(DIR_INCLUDE)maillon.h $(DIR_INCLUDE)utils.h 
+	@echo ------------- Generating $@ -------------
+	$(CC) -o $@ -c -DNBL=1 -DStorage=uint8_t -DSIZE=8 $< $(CFLAGS)
+	@echo -e
+
+$(DIR_TGT)utils8.o: $(DIR_SRC)utils.c $(DIR_INCLUDE)utils.h
+	@echo ------------- Generating $@ -------------
+	$(CC) -o $@ -c -DDEBUG=$(DEBUG) -DNBL=1 -DStorage=uint8_t -DSIZE=8 $< $(CFLAGS)
+	@echo -e
 
 #--------------
 #    Global	
