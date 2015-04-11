@@ -2,20 +2,6 @@
 #include <stdlib.h>
 #include <stdint.h>
 
-#if NBL == 12
-	typedef uint64_t Storage;
-	#define SIZE 64
-#elif NBL == 3
-	typedef uint16_t Storage;
-	#define SIZE 16
-#elif NBL == 1
-	typedef uint8_t Storage;
-	#define SIZE 8
-#else
-	typedef uint32_t Storage;
-	#define SIZE 32
-#endif
-
 /** Display a split binary representation of n. */
 void displayBinary(Storage n);
 

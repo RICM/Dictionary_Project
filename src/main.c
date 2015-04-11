@@ -12,7 +12,7 @@ int traitement (FILE *file){
 
     if(!file){
         fprintf(stderr, "Error : file is inaccessible.\n");
-        return 1;
+        return 0;
     }
     else{
         while(!feof(file)){
@@ -27,6 +27,8 @@ int traitement (FILE *file){
 
 int main (int argc, char* argv[]){
 	FILE *file;
+
+	printf("%ld\n", sizeof(Storage));
 
 	if(argc == 1){
         file = stdin;
@@ -59,7 +61,8 @@ int main (int argc, char* argv[]){
 			printf("\t#############################################################################################\n");
 			printf("\n");
             status = traitement(file);
-            fclose(file);
+            if(file)
+                fclose(file);
             varLoop++;
         }
         return status;

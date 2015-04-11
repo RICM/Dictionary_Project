@@ -2,7 +2,7 @@
 #include "maillon.h"
 
 /** Display a maillon in a binary rapresentation. */
-void print_Maillon(pMaillon list){
+void print_maillon(pMaillon list){
 	pMaillon tmp = list;
 	printf("Liste : \n");
 	while(tmp != NULL){

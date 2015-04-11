@@ -13,7 +13,7 @@ typedef struct maillon_t {
 typedef Maillon *pMaillon;
 
 /** Display a maillon in a binary rapresentation. */
-void print_Maillon(pMaillon list);
+void print_maillon(pMaillon list);
 
 /** Get the length of a Maillon list. */
 int length(pMaillon list);
