@@ -12,9 +12,17 @@ typedef struct maillon_t {
 
 typedef Maillon *pMaillon;
 
+/** Display a maillon in a binary rapresentation. */
 void print_Maillon(pMaillon list);
+
+/** Get the length of a Maillon list. */
 int length(pMaillon list);
 
+/** Add a Maillon to the tail of a Maillon list. */
 pMaillon add_to_tail(pMaillon list, Storage elem);
+
+/** Convert a string into a Maillon list. */
 pMaillon string_to_maillon(char *s);
+
+/** Convert a Maillon list into a string. */
 void maillon_to_string(pMaillon list, char *str);

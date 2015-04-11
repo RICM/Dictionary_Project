@@ -1,6 +1,7 @@
 
 #include "maillon.h"
 
+/** Display a maillon in a binary rapresentation. */
 void print_Maillon(pMaillon list){
 	pMaillon tmp = list;
 	printf("Liste : \n");
@@ -10,6 +11,7 @@ void print_Maillon(pMaillon list){
 	}
 }
 
+/** Get the length of a Maillon list. */
 int length(pMaillon list){
 	int i=0;
 	pMaillon tmp = list;
@@ -20,6 +22,7 @@ int length(pMaillon list){
 	return i;
 }
 
+/** Add a Maillon to the tail of a Maillon list. */
 pMaillon add_to_tail(pMaillon list, Storage elem){
 	pMaillon newMaillon = malloc(sizeof(Maillon));
 	newMaillon->maille = elem;
@@ -36,6 +39,7 @@ pMaillon add_to_tail(pMaillon list, Storage elem){
 	}
 }
 
+/** Convert a string into a Maillon list. */
 pMaillon string_to_maillon(char *s){
 	pMaillon m = NULL;
 	Storage maille;
@@ -49,6 +53,7 @@ pMaillon string_to_maillon(char *s){
 	return m;
 }
 
+/** Convert a Maillon list into a string. */
 void maillon_to_string(pMaillon list, char *str){
 	int bEnd = 0;
 	int i, j;

@@ -20,6 +20,7 @@ int traitement (FILE *file){
             d = insertion_dictionnaire(d, out, nbl, nbc);
         }
         affichage(d);
+        printf("\n");
     }
     return 0;
 }
@@ -27,27 +28,21 @@ int traitement (FILE *file){
 int main (int argc, char* argv[]){
 	FILE *file;
 
-	/*Storage n = 0x0000000000000000;
-	set_charnum(&n, 0, 26);
-	displayBinary(n);
-	printf("%d\n", get_charnum(n, 0));
-	
-	pMaillon c = string_to_maillon("abcdefghijklmnopqrstuvwxyz");
-	pMaillon d = string_to_maillon("aaaaaaaaaaaaaaaaaaaaaaaaaa");
-	print_Maillon(c);
-	print_Maillon(d);*/
-
 	if(argc == 1){
         file = stdin;
-				printf("#############################################################################################\n");
-				printf("Fichier : stdin\n");
-				printf("#############################################################################################\n");
+		printf("\n");
+		printf("\t#############################################################################################\n");
+		printf("\t# Fichier : stdin\n");
+		printf("\t#############################################################################################\n");
+		printf("\n");
         return traitement(file);
 	}
-  else if(argc == 2){
-				printf("#############################################################################################\n");
-				printf("Fichier : %s\n",argv[1] );
-				printf("#############################################################################################\n");
+  	else if(argc == 2){
+  		printf("\n");
+		printf("\t#############################################################################################\n");
+		printf("\t# Fichier : %s\n",argv[1] );
+		printf("\t#############################################################################################\n");
+		printf("\n");
         file = fopen(argv[1], "r");
         return traitement(file);
   }
@@ -58,9 +53,11 @@ int main (int argc, char* argv[]){
         int varLoop = startLoop;
         while ( varLoop < endLoop && status == 0){
             file = fopen(argv[varLoop], "r");
-						printf("#############################################################################################\n");
-						printf("Fichier : %s\n",argv[varLoop] );
-						printf("#############################################################################################\n");
+            printf("\n");
+			printf("\t#############################################################################################\n");
+			printf("\t# Fichier : %s\n",argv[varLoop] );
+			printf("\t#############################################################################################\n");
+			printf("\n");
             status = traitement(file);
             fclose(file);
             varLoop++;

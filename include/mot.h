@@ -18,9 +18,17 @@ typedef struct mot_t {
 
 typedef Mot *pMot;
 
+/** Add an Emplacement to the tail of a Emplacement list. */
 pEmplacement add_emplacement(pEmplacement p, pEmplacement p2);
+
+/** Add an Emplacement to a Mot. */
 Mot add_emplacement_mot(Mot m, int l, int c);
 
+/** Create a Mot with a string, and an intial Emplacement. */
 void creer_mot(Mot *mot, char *m, int l, int c);
+
+/** Display a mot in a string representation. */
 void print_mot(Mot m);
+
+/** Compare two Mots. */
 int compare_mots(Mot m1, Mot m2);

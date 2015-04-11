@@ -1,5 +1,6 @@
 #include "dictionnaire.h"
 
+/** Add a Mot to the head of a Dictionnaire list. */
 pDictionnaire add_to_head_dictionnaire(pDictionnaire d, Mot m){
 	pDictionnaire toAdd = malloc(sizeof(Dictionnaire));
 	toAdd->m = m;
@@ -7,6 +8,7 @@ pDictionnaire add_to_head_dictionnaire(pDictionnaire d, Mot m){
 	return toAdd;
 }
 
+/** Add a Mot to the tail of a Dictionnaire list. */
 pDictionnaire add_to_tail_dictionnaire(pDictionnaire d, Mot m){
 	pDictionnaire tmp = d;
 
@@ -21,6 +23,7 @@ pDictionnaire add_to_tail_dictionnaire(pDictionnaire d, Mot m){
 	return d;
 }
 
+/** Add a Mot inside a Dictionnaire list. */
 pDictionnaire add_inside_dictionnaire(pDictionnaire pred, pDictionnaire succ, Mot m){
 	pDictionnaire toAdd = malloc(sizeof(Dictionnaire));
 	toAdd->m = m;
@@ -29,6 +32,7 @@ pDictionnaire add_inside_dictionnaire(pDictionnaire pred, pDictionnaire succ, Mo
 	return pred;
 }
 
+/** Add a Mot to a Dictionnaire list. */
 pDictionnaire insertion_dictionnaire(pDictionnaire d, char *mot, int l, int c){
 	pDictionnaire tmpSucc;
 	pDictionnaire tmpPred;
@@ -39,17 +43,12 @@ pDictionnaire insertion_dictionnaire(pDictionnaire d, char *mot, int l, int c){
 	if(d == NULL)
 		return add_to_head_dictionnaire(NULL, m);
 	else if(d->succ == NULL || compare_mots(m, d->m) < 1)
-		switch(compare_mots(m, d->m)){
-			case 0:
-				d->m = add_emplacement_mot(d->m, l, c);
-		    	break;
-			case -1:
-				d = add_to_head_dictionnaire(d, m);
-				break;
-			case 1:
-				d = add_to_tail_dictionnaire(d, m);
-				break;
-		}
+		if(compare_mots(m, d->m) == 0)
+			d->m = add_emplacement_mot(d->m, l, c);
+		else if(compare_mots(m, d->m) < 0)
+			d = add_to_head_dictionnaire(d, m);
+		else
+			d = add_to_tail_dictionnaire(d, m);
 	else{
 		tmpPred = d;
 		tmpSucc = tmpPred->succ;
@@ -70,6 +69,7 @@ pDictionnaire insertion_dictionnaire(pDictionnaire d, char *mot, int l, int c){
 	return d;
 }
 
+/** Display a Dictionnaire list. */
 void affichage(pDictionnaire d){
 	pDictionnaire tmp = d;
 	while (tmp != NULL){
