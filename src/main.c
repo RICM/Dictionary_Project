@@ -28,7 +28,7 @@ int traitement (FILE *file){
 int main (int argc, char* argv[]){
 	FILE *file;
 
-	printf("%ld\n", sizeof(Storage));
+	//printf("%ld\n", sizeof(Storage));
 
 	if(argc == 1){
         file = stdin;
