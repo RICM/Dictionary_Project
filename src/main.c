@@ -67,8 +67,6 @@ int main (int argc, char* argv[]){
 	FILE *file;
 	int menures;
 
-	printf("%ld\n", sizeof(Storage));
-
 	if(argc == 1){
     file = stdin;
 		printf("\n");
@@ -84,11 +82,6 @@ int main (int argc, char* argv[]){
 			printf("\t# \t\t\t\tFichier : %s\t\t\t\t#\n",argv[1] );
 			printf("\t#########################################################################################\n");
 			printf("\n");
-      file = fopen(argv[1], "r");
-      if (traitement(file) != 0)
-				return 1;
-			else{
-				fclose(file);
 				menures = menu();
 				while (menures !=3){
 					switch (menures){
@@ -108,28 +101,13 @@ int main (int argc, char* argv[]){
 							return 1;
 					}
 				}
-			}
+
 	}
   else{
         int status = 0;
         int startLoop = 1;
         int endLoop = argc;
         int varLoop = startLoop;
-        while ( varLoop < endLoop && status == 0){
-            file = fopen(argv[varLoop], "r");
-            printf("\n");
-						printf("\t#########################################################################################\n");
-						printf("\t# \t\t\t\tFichier : %s\t\t\t\t#\n",argv[varLoop] );
-						printf("\t#########################################################################################\n");
-						printf("\n");
-            status = traitement(file);
-            if(file)
-                fclose(file);
-            varLoop++;
-        }
-				if (status != 0)
-					return 1;
-				else{
 					menures = menu();
 					while (menures !=3){
 						switch (menures){
@@ -176,6 +154,5 @@ int main (int argc, char* argv[]){
 						}
 					}
 				}
+				return 0;
 	}
-	return 0;
-}

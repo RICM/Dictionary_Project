@@ -4,9 +4,9 @@
 /** Display a maillon in a binary rapresentation. */
 void print_maillon(pMaillon list){
 	pMaillon tmp = list;
-	printf("Liste : \n");
+	printf("\tListe des maillons associés: \n");
 	while(tmp != NULL){
-		printf("\tMaillon : \t\t");	displayBinary(tmp->maille);
+		printf("\t\tMaillon : \t\t");	displayBinary(tmp->maille);
 		tmp = tmp->succ;
 	}
 }
