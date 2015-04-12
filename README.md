@@ -69,6 +69,18 @@ Attention dans le cas ou vous utilisez l'application avec *stdin* il vous sera i
 ----------------------------------
 
 - *dictionnaire.h*
+  * *pDictionnaire* **add_to_head_dictionnaire** *(pDictionnaire d, Mot m);*
+
+  prends en entrée un pointeur vers un dictionnaire et un Mot, puis ajoute ce mot au dictionnaire en tête de dictionnaire, et enfin retourne le pointeur vers le dictionnaire.
+
+  * *pDictionnaire* **add_to_tail_dictionnaire** *(pDictionnaire d, Mot m)*;
+
+  prends en entrée un pointeur vers un dictionnaire et un Mot, puis ajoute ce mot au dictionnaire en queue de dictionnaire, et enfin retourne le pointeur vers l'ancien dictionnaire avec le Mot en plus.
+
+  * *pDictionnaire* **add_inside_dictionnaire** *(pDictionnaire pred, pDictionnaire succ, Mot m)*;
+
+  prends en entrée un mot deux pointeurs vers
+
 - *maillon.h*
 - *mot.h*
 - *read_word.h*
@@ -76,6 +88,24 @@ Attention dans le cas ou vous utilisez l'application avec *stdin* il vous sera i
 
 4) Choix et justifications
 ----------------------------------
+
+Globalement la structure choisie est celle proposée dans le sujet. Néanmoins afin d'aider dans le développement du projet nous avons ajouté des fonctions de débugage comme les fonctions d'affichage binaires.
+
+De plus nous avons rajouté des fonctions de libérations de mémoires.
+
+Nous avons commencé par gérer le type *uint32_t*, pour cette structure de donnée l'élément que l'on devait ajouter à notre maillon était de type *uint8_t* ce qui correspond à un caractèr, cependant  quand nous avons voulu passer à la version 64bits, nous avons remarqué que faire un décalage vers la gauche supérieur à 31 d'un uint8_t le faisait faire un cycle. Ainsi au lieu d'écrire à la place 0 dans le cas d'un *uint64_t*
+on écrivait à la place 5 d'où un problème et d'où le passage a une variable à ajouter de type Storage (identique à celui de notre maillon). Enfin dans la fonction get_charnum, nous avons du faire la même chose pour la valeur 31 que l'on décallait pour obtenir un masque. De base un entier est codé sur 32 bits et oppérer un décalage donc supérieur à 31 le faire revenir au début. Nous avons donc du assigner une variable mask de type Storage sur laquelle on exécute le décalage. Enfin la paramétrisation s'est faite par l'intermédiaire de 3 define *SIZE*, *NBL* et *Storage*, qui est le type de notre maillon.
+Ces define sont définis lors de la compilation grâce à l'option `-D -DSIZE=x ... -DNBL=x`
+
+Nous avons fait ce choix pour simplifier la compilation dans de multiples version (64, 32, 16 et 8 bits) de notre programme
+
+Enfin nous avons décidé de donner la possibilité à l'utilisateur de choisir s'il veut afficher simplement le dictionnaire ou bien le dictionnaire avec l'affichage des maillons
+
+Nous avons aussi choisi de supporter un nombre supérieur à 1 de fichiers à analyser dans les arguments passés au programme
+
+Cependant si un fichier n'est pas ouvrable, celà génére une segfault (retour code 1).
+
+
 
 5) Possibilités d'évolution
 ----------------------------------

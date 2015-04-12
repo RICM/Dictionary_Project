@@ -77,23 +77,24 @@ int main (int argc, char* argv[]){
 		return traitement(file);
 	}
   	else if(argc == 2){
+			int status = 0;
   		printf("\n");
 			printf("\t#########################################################################################\n");
 			printf("\t# \t\t\t\tFichier : %s\t\t\t\t#\n",argv[1] );
 			printf("\t#########################################################################################\n");
 			printf("\n");
 				menures = menu();
-				while (menures !=3){
+				while (menures !=3 && status !=1){
 					switch (menures){
 						case 1:
 							file = fopen(argv[1], "r");
-							traitement(file);
+							status = traitement(file);
 							fclose(file);
 							menures = menu();
 							break;
 						case 2:
 							file = fopen(argv[1], "r");
-							traitement2(file);
+							status = traitement2(file);
 							fclose(file);
 							menures = menu();
 							break;
@@ -118,6 +119,8 @@ int main (int argc, char* argv[]){
 			         varLoop = startLoop;
 			        while ( varLoop < endLoop && status == 0){
 			            file = fopen(argv[varLoop], "r");
+									if (!file)
+										return 1;
 			            printf("\n");
 									printf("\t#########################################################################################\n");
 									printf("\t# \t\t\t\tFichier : %s\t\t\t\t#\n",argv[varLoop] );
