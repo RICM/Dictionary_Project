@@ -1,6 +1,6 @@
 CPS : compte rendu du projet
 ========================
-
+![polytech-grenoble](doc/poly.png)
 Voici le compte rendu du projet de CPS sur le dictionnaire, realisé par :
 - Matthieu NOGUERON
 - Aymeric VIAL-GRELIER
