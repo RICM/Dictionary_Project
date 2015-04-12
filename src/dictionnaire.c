@@ -57,7 +57,7 @@ pDictionnaire insertion_dictionnaire(pDictionnaire d, char *mot, int l, int c){
 			tmpSucc = tmpSucc->succ;
 			tmpPred = tmpPred->succ;
 		}
-		
+
 		if(compare_mots(m, tmpSucc->m) < 1)
 			if(compare_mots(m, tmpSucc->m) == 0)
 				tmpSucc->m = add_emplacement_mot(tmpSucc->m, l, c);
@@ -76,6 +76,7 @@ void affichage(pDictionnaire d){
 		print_mot(tmp->m);
 		tmp = tmp->succ;
 	}
+	free(tmp);
 }
 
 /** Release of the memory used by a Dictionnaire list. */
@@ -86,4 +87,20 @@ void freeDictionnaireList(pDictionnaire *d){
 		*d = (*d)->succ;
 		freeMot(&(tmp->m));
 	}
+}
+
+/** Display a Dictionnaire list with associated maillons */
+void affichageMaillons(pDictionnaire d){
+	pDictionnaire tmp = d;
+	printf("\t#########################################################################################\n");
+	printf("\t\tListe des maillons correspondants : \n");
+	printf("\t#########################################################################################\n");
+	while (tmp != NULL){
+		printf("\t#########################################################################################\n");
+		print_mot(tmp->m);
+		printf("\t#########################################################################################\n");
+		print_maillon(tmp->m.tete_mot);
+		tmp = tmp->succ;
+	}
+	free(tmp);
 }

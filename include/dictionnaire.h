@@ -28,3 +28,6 @@ void affichage(pDictionnaire d);
 
 /** Release of the memory used by a Dictionnaire list. */
 void freeDictionnaireList(pDictionnaire *d);
+
+/** Display a Dictionnaire list with associated maillons */
+void affichageMaillons(pDictionnaire d);
