@@ -1,6 +1,8 @@
+![polytech-grenoble](doc/poly.png)
+
 CPS : compte rendu du projet
 ========================
-![polytech-grenoble](doc/poly.png)
+
 Voici le compte rendu du projet de CPS sur le dictionnaire, realisé par :
 - Matthieu NOGUERON
 - Aymeric VIAL-GRELIER
@@ -10,16 +12,16 @@ Voici le compte rendu du projet de CPS sur le dictionnaire, realisé par :
 
 ### *Liste des différents répertoires et utilitée(s) de chacun*
 
-Lorsque vous avez décompressé l'archive, vous avez alors pû constater une structure précise.
+Lorsque vous aurez décompressé l'archive, vous pourrez alors constater une structure précise.
 Voici la description de cette architecture.
-- Examples : contient les fichiers de tests au format .txt. Ces fichiers peuvent être utilisés lors de l'utilisation de l'application.
+- Examples : contient les fichiers de tests au format .txt. Ceux-ci peuvent être utilisés en argument lors de l'appel à l'application.
 - doc : contient les différents fichiers de documentation du projet (sujet + compte rendu).
 - include : contient les headers (.h) du projet:
-  * *dictionnaire.h* contient le header concernant le dictionnaire
-  * *maillon.h* contient le header concernant les maillons
-  * *mot.h* contient le header concernant les mots
-  * *read_word.h* contient le header concernant la lecture des fichiers afin de les transformer en mots
-  * *utils.h* contient le header concernant des fonctions utiles sur différents plans.
+  * *dictionnaire.h* contient les prototypes des fonctions concernant le dictionnaire
+  * *maillon.h* contient les prototypes des fonctions concernant les maillons
+  * *mot.h* contient les prototypes des fonctions concernant les mots
+  * *read_word.h* contient les prototypes des fonctions concernant la lecture des fichiers afin de les transformer en mots
+  * *utils.h* contient les prototypes des fonctions concernant des fonctions utiles sur différents plans.
 - lib : contient les librairies fournies pour le déroulement du projet au format *.so* et *.dylib*
 - src : contient les sources du projet à savoir
     * *dictionnaire.c* contient les différentes fonctions en rapport avec le dictionnaire
@@ -187,16 +189,15 @@ Globalement la structure choisie est celle proposée dans le sujet. Néanmoins a
 
 De plus nous avons rajouté des fonctions de libérations de mémoires.
 
-Nous avons commencé par gérer le type *uint32_t*, pour cette structure de donnée l'élément que l'on devait ajouter à notre maillon était de type *uint8_t* ce qui correspond à un caractèr, cependant  quand nous avons voulu passer à la version 64bits, nous avons remarqué que faire un décalage vers la gauche supérieur à 31 d'un uint8_t le faisait faire un cycle. Ainsi au lieu d'écrire à la place 0 dans le cas d'un *uint64_t*
-on écrivait à la place 5 d'où un problème et d'où le passage a une variable à ajouter de type Storage (identique à celui de notre maillon). Enfin dans la fonction get_charnum, nous avons du faire la même chose pour la valeur 31 que l'on décallait pour obtenir un masque. De base un entier est codé sur 32 bits et oppérer un décalage donc supérieur à 31 le faire revenir au début. Nous avons donc du assigner une variable mask de type Storage sur laquelle on exécute le décalage. Enfin la paramétrisation s'est faite par l'intermédiaire de 3 define *SIZE*, *NBL* et *Storage*, qui est le type de notre maillon.
+Nous avons commencé par gérer le type *uint32_t*, pour cette structure de donnée l'élément que l'on devait ajouter à notre maillon était de type *uint8_t* ce qui correspond à un caractère, cependant  quand nous avons voulu passer à la version 64bits, nous avons remarqué que faire un décalage vers la gauche supérieur à 31, d'un uint8_t, lui faisait faire un cycle. Ainsi au lieu d'écrire à la place 0 dans le cas d'un *uint64_t*,
+on écrivait à la place 5, d'où un problème et d'où le passage a une variable à ajouter de type Storage (identique à celui de notre maillon). Enfin dans la fonction get_charnum, nous avons du faire la même chose pour la valeur 31 que l'on décallait pour obtenir un masque. De base un entier est codé sur 32 bits et oppérer un décalage supérieur à 31 le faire revenir au début. Nous avons donc du assigner une variable mask de type Storage sur laquelle on exécute le décalage. Enfin la paramétrisation s'est faite par l'intermédiaire de 3 define : *SIZE*, *NBL* et *Storage*, ce dernier définissant le type de notre maillon.
 Ces define sont définis lors de la compilation grâce à l'option `-D -DSIZE=x ... -DNBL=x`
 
-Nous avons fait ce choix pour simplifier la compilation dans de multiples versions (64, 32, 16 et 8 bits) de notre programme
+Nous avons fait ce choix pour simplifier la compilation dans de multiples versions (64, 32, 16 et 8 bits) de notre programme.
 
-Enfin nous avons décidé de donner la possibilité à l'utilisateur de choisir s'il veut afficher simplement le dictionnaire ou bien le dictionnaire avec l'affichage des maillons
+Enfin nous avons décidé de donner la possibilité à l'utilisateur de choisir s'il veut afficher simplement le dictionnaire ou bien le dictionnaire avec l'affichage des maillons.
 
-Nous avons aussi choisi de supporter un nombre supérieur à 1 de fichiers à analyser dans les arguments passés au programme
-
+Nous avons aussi choisi de supporter un nombre supérieur à 1 de fichiers à analyser dans les arguments passés au programme.
 Cependant si un fichier n'est pas ouvrable, celà génére une segfault (retour code 1).
 
 
@@ -204,4 +205,4 @@ Cependant si un fichier n'est pas ouvrable, celà génére une segfault (retour 
 5) Possibilités d'évolution
 ----------------------------------
 
-Dans le futur afin de perfectionner l'application il serait possible d'inclure la gestion des chiffres et nombres, ainsi que les caractères spéciaux et ainsi permettre une plus vaste et plus libre utilisation de l'application. Nous avons préféré ne pas s'attarder sur ces fonctionnalités, n'étant pas un des points majeurs de ce projet, néanmoins ce pourrait être utile.
+Dans le futur afin de perfectionner l'application il serait possible d'inclure la gestion des chiffres et nombres, ainsi que les caractères spéciaux et ainsi permettre une plus vaste et plus libre utilisation de l'application. Nous avons préféré ne pas s'attarder sur ces fonctionnalités, n'étant pas un des points majeurs de ce projet, néanmoins ceci permettrait de créer un véritable dictionnaire.
