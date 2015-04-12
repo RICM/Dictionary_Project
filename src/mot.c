@@ -23,6 +23,16 @@ Mot add_emplacement_mot(Mot m, int l, int c){
     return m;
 }
 
+/** Release of the memory used by a Emplacement list. */
+void freeEmplacementList(pEmplacement *emp){
+	pEmplacement tmp;
+	while(*emp != NULL){
+		tmp = *emp;
+		*emp = (*emp)->succ;
+		free(tmp);
+	}
+}
+
 /** Create a Mot with a string, and an intial Emplacement. */
 void creer_mot(pMot mot, char *m, int l, int c){
 
@@ -87,4 +97,12 @@ int compare_mots(Mot m1, Mot m2){
 	else if(tmp1 != NULL && tmp2 == NULL)
 		out = 1;
 	return out;
+}
+
+/** Release of the memory used by a Mot. */
+void freeMot(Mot *m){
+	freeMaillonList(&(m->tete_mot));
+	freeEmplacementList(&(m->tete_liste));
+	m->queue_mot = NULL;
+	m->queue_liste = NULL;
 }

@@ -77,3 +77,13 @@ void affichage(pDictionnaire d){
 		tmp = tmp->succ;
 	}
 }
+
+/** Release of the memory used by a Dictionnaire list. */
+void freeDictionnaireList(pDictionnaire *d){
+	pDictionnaire tmp;
+	while(*d != NULL){
+		tmp = *d;
+		*d = (*d)->succ;
+		freeMot(&(tmp->m));
+	}
+}

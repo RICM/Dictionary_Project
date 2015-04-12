@@ -42,7 +42,6 @@ void test_set_get_charnum(){
 	displayBinary(n);
 
 	printf("\nValidation : caractere a la position %d : %c\n\n", position, num_to_char(get_charnum(n, position)));
-
 }
 
 void test_string_to_maillon_to_string(){
@@ -52,7 +51,10 @@ void test_string_to_maillon_to_string(){
 		print_maillon(m);
 
 	maillon_to_string(m, str);
-	printf("\nValidation de la conversion --> resultat de la fonction inverse : %s\n\n", str);
+	printf("\nValidation de la conversion --> resultat de la fonction inverse : %s\n", str);
+
+	freeMaillonList(&m);
+	printf("\nDesallocation memoire de m : %s\n\n", (m == NULL)? "reussie" : "echec");
 }
 
 void test_creer_mot_compare(){
@@ -91,7 +93,12 @@ void test_creer_mot_compare(){
 	printf("\nTransformation de m1 en un mot contenant \"cps\" et ayant pour emplacement (3, 5) : \n");
 	print_mot(m1);
 
-	printf("\nResultat de la comparaison de m et m1 : %d\n\n", compare_mots(m, m1));
+	printf("\nResultat de la comparaison de m et m1 : %d\n", compare_mots(m, m1));
+
+	freeMot(&m);
+	printf("\nDesallocation memoire de m : %s", (m.tete_mot == NULL && m.tete_liste == NULL)? "reussie" : "echec");
+	freeMot(&m1);
+	printf("\nDesallocation memoire de m1 : %s\n\n", (m1.tete_mot == NULL && m1.tete_liste == NULL)? "reussie" : "echec");
 }
 
 int main (int argc, char* argv[]){

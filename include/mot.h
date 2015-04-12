@@ -24,6 +24,9 @@ pEmplacement add_emplacement(pEmplacement p, pEmplacement p2);
 /** Add an Emplacement to a Mot. */
 Mot add_emplacement_mot(Mot m, int l, int c);
 
+/** Release of the memory used by a Emplacement list. */
+void freeEmplacementList(pEmplacement *emp);
+
 /** Create a Mot with a string, and an intial Emplacement. */
 void creer_mot(Mot *mot, char *m, int l, int c);
 
@@ -32,3 +35,6 @@ void print_mot(Mot m);
 
 /** Compare two Mots. */
 int compare_mots(Mot m1, Mot m2);
+
+/** Release of the memory used by a Mot. */
+void freeMot(Mot *m);

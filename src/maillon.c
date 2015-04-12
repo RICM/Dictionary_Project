@@ -81,3 +81,13 @@ void maillon_to_string(pMaillon list, char *str){
 		strTmp[(j-1)*NBL+i] = '\0';
 	strcpy(str, strTmp);
 }
+
+/** Release of the memory used by a Maillon list. */
+void freeMaillonList(pMaillon *list){
+	pMaillon tmp;
+	while(*list != NULL){
+		tmp = *list;
+		*list = (*list)->succ;
+		free(tmp);
+	}
+}

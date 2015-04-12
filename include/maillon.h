@@ -26,3 +26,6 @@ pMaillon string_to_maillon(char *s);
 
 /** Convert a Maillon list into a string. */
 void maillon_to_string(pMaillon list, char *str);
+
+/** Release of the memory used by a Maillon list. */
+void freeMaillonList(pMaillon *list);

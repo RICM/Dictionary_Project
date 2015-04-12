@@ -25,3 +25,6 @@ pDictionnaire insertion_dictionnaire(pDictionnaire d, char *mot, int l, int c);
 
 /** Display a Dictionnaire list. */
 void affichage(pDictionnaire d);
+
+/** Release of the memory used by a Dictionnaire list. */
+void freeDictionnaireList(pDictionnaire *d);

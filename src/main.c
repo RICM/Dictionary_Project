@@ -12,23 +12,23 @@ int traitement (FILE *file){
 
     if(!file){
         fprintf(stderr, "Error : file is inaccessible.\n");
-        return 0;
+        return 1;
     }
     else{
         while(!feof(file)){
             out = next_word(file, &nbl, &nbc);
-            d = insertion_dictionnaire(d, out, nbl, nbc);
+            d = insertion_dictionnaire(d, out, nbl, nbc); // ajout trié du mot out dans le dictionnaire d
         }
-        affichage(d);
+        affichage(d);   // affichage de l'ensemble du dictionnaire
         printf("\n");
+        freeDictionnaireList(&d); // libération de la mémoire utilisé par d
+        printf("\tDesallocation du dictionnaire : %s\n", (d == NULL)? "reussie" : "echec");
     }
     return 0;
 }
 
 int main (int argc, char* argv[]){
 	FILE *file;
-
-	//printf("%ld\n", sizeof(Storage));
 
 	if(argc == 1){
         file = stdin;
@@ -48,7 +48,7 @@ int main (int argc, char* argv[]){
         file = fopen(argv[1], "r");
         return traitement(file);
   }
-  else{
+  else{ // si on a plus d'un fichier à lire on boucle sur l'ensemble des arguments donnés en paramètre
         int status = 0;
         int startLoop = 1;
         int endLoop = argc;

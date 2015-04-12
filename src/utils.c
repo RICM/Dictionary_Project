@@ -47,11 +47,10 @@ char num_to_char(uint8_t n){
 /** Write a character inside a container n. */
 void set_charnum(Storage *n, uint8_t k, Storage toAdd){
 	Storage mask = 31;
-	*n &= ~(mask << (5*(NBL-1-k)));
-	if(DEBUG){
-		printf("With mask : \t\t"); displayBinary(*n);
-	}
-	*n |= (toAdd << (5*(NBL-1-k)));
+	*n &= ~(mask << (5*(NBL-1-k)));		// suppression de l'ancienne données présente à la kieme place
+	if(DEBUG){printf("With mask : \t\t"); displayBinary(*n);}
+
+	*n |= (toAdd << (5*(NBL-1-k)));		// ajout de toAdd à la kième place
 	if(DEBUG){printf("With data : \t\t"); displayBinary(*n); printf("\n");}
 }
 
