@@ -79,7 +79,23 @@ Attention dans le cas ou vous utilisez l'application avec *stdin* il vous sera i
 
   * *pDictionnaire* **add_inside_dictionnaire** *(pDictionnaire pred, pDictionnaire succ, Mot m)*;
 
-  prends en entrée un mot deux pointeurs vers
+  prends en entrée deux pointeurs vers dictionnaires et un mot, insère le mot à la bonne place puis revoie un pointeur vers le dictionnaire.
+
+  * *pDictionnaire* **insertion_dictionnaire** *(pDictionnaire d, char *mot, int l, int c)*;
+
+  prends en entrée un pointeur vers un dictionnaire, une string et deux entiers (ligne et colonne du mot) puis choisi en fonction de ce qui est déjà présent dans le dictionnaire de l'endroit ou insérer le Mot crée à partir de la string et des entiers dans le dictionnaire donné en paramètre puis renvoie le pointeur du dictionnaire mis à jour.
+
+  * *void* **affichage** *(pDictionnaire d)*;
+
+  prends en entrée un pointeur vers un dictionnaire, l'affiche en parcourant les mots jusqu'à la fin.
+
+  * *void* **freeDictionnaireList** *(pDictionnaire *d)*;
+
+  prends en entrée un pointeur vers un dictionnaire, puis libère les allocation mémoires de ce dictionnaire.
+
+  * *void* **affichageMaillons** *(pDictionnaire d)*;
+
+  prends en entrée un dictionnaire puis affiche les mots et les maillons associés à ce mot.
 
 - *maillon.h*
 - *mot.h*
